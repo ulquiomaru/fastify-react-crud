@@ -1,4 +1,4 @@
-import { fetchItems, addItem, updateItem, deleteItem } from "./controller";
+const { fetchItems, addItem, updateItem, deleteItem } = require("./controller");
 
 const routes = [
   {
@@ -23,4 +23,4 @@ const routes = [
   },
 ];
 
-export default routes;
+module.exports = routes;

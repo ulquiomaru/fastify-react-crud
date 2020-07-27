@@ -1,11 +1,11 @@
-import { Schema, model } from "mongoose";
+const mongoose = require("mongoose");
 
-const menuItemSchema = new Schema({
+const menuItemSchema = new mongoose.Schema({
   id: String,
   name: String,
   price: Number,
 });
 
-const MenuItem = model("MenuItem", menuItemSchema);
+const MenuItem = mongoose.model("MenuItem", menuItemSchema);
 
-export default { MenuItem };
+module.exports = { MenuItem };

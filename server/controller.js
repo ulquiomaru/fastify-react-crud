@@ -1,4 +1,4 @@
-import { MenuItem } from "./models/menuItems";
+const { MenuItem } = require("./models/menuItems");
 
 // It reads all the items present in database
 const fetchItems = async (req, reply) => {
@@ -45,4 +45,4 @@ const deleteItem = async (req, reply) => {
   }
 };
 
-export default { fetchItems, addItem, updateItem, deleteItem };
+module.exports = { fetchItems, addItem, updateItem, deleteItem };

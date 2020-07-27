@@ -1,16 +1,18 @@
-import { connect } from "mongoose";
+const mongoose = require("mongoose");
 const fastify = require("fastify")();
-import { forEach } from "./routes";
-import path from "path";
+const routes = require("./routes");
+const path = require("path");
 const {
-  parsed: { MONGO_ATLAS_PW },
+  parsed: { MONGO_ATLAS_DB, MONGO_ATLAS_USER, MONGO_ATLAS_PW },
 } = require("dotenv").config();
 
 //connect to mongodb atlas
-connect(
-  `mongodb+srv://userx:${MONGO_ATLAS_PW}@cluster0-ufv5h.azure.mongodb.net/test?retryWrites=true`,
-  { useFindAndModify: false, useNewUrlParser: true }
-)
+mongoose
+  .connect(
+    `mongodb+srv://${MONGO_ATLAS_USER}:${MONGO_ATLAS_PW}@fastify.gsy7f.mongodb.net/${MONGO_ATLAS_DB}?retryWrites=true&w=majority`,
+    // `mongodb+srv://userx:${MONGO_ATLAS_PW}@cluster0-ufv5h.azure.mongodb.net/test?retryWrites=true`,
+    { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true }
+  )
   .then(() => console.log("MongoDB connected"))
   .catch((e) => console.log("MongoDB could not be connected due to ", e));
 
@@ -24,7 +26,7 @@ fastify.get("/", async (request, reply) => {
 });
 
 //iterating over all the routes and registering them with fastify
-forEach((route) => fastify.route(route));
+routes.forEach((route) => fastify.route(route));
 
 //launching server at port : 3000 in local environment
 fastify.listen(process.env.PORT || 3000, "0.0.0.0", (err) => {
@@ -32,5 +34,7 @@ fastify.listen(process.env.PORT || 3000, "0.0.0.0", (err) => {
     fastify.log.error(err);
     process.exit(1);
   }
-  console.log(`server running at ${fastify.server.address().port}`);
+  console.log(
+    `server running at http://localhost:${fastify.server.address().port}`
+  );
 });
