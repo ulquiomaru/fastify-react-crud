@@ -8,6 +8,7 @@ import {
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEMS_FAILURE,
 } from "../actions/actions";
+
 //initial state for redux store
 const initialState = {
   menuItems: [],
@@ -45,6 +46,7 @@ export default function (state = initialState, action) {
       };
     }
 
+    //indicates when fetching begins
     case FETCH_ITEMS_BEGIN:
       return {
         ...state,
@@ -52,6 +54,7 @@ export default function (state = initialState, action) {
         errors: null,
       };
 
+    //indicates when items are fetched successfully
     case FETCH_ITEMS_SUCCESS:
       return {
         ...state,
@@ -59,6 +62,7 @@ export default function (state = initialState, action) {
         menuItems: action.payload.items,
       };
 
+    //indicates when there is a failure in fetching items
     case FETCH_ITEMS_FAILURE:
       return {
         ...state,

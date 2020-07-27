@@ -9,8 +9,8 @@ import {
   updateItem,
   readItems,
 } from "./redux/actions/actions";
-import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 //main component that wraps major part of application
 function Menu(props) {
@@ -18,7 +18,7 @@ function Menu(props) {
 
   useEffect(() => {
     props.readItems();
-  }, [props.menuItems]);
+  }, []);
 
   //function to trigger form rendering
   const handleAddClick = () => setOpenAddForm(true);
@@ -49,15 +49,9 @@ function Menu(props) {
   const handleDeleteItem = (id) => {
     axios
       .delete(`/api/menuItems/${id}`)
-      .then(
-        ({
-          data: {
-            data: { name },
-          },
-        }) => {
-          console.log(`Item - ${name} deleted successfully`);
-        }
-      )
+      .then(({ data: { name } }) => {
+        console.log(`Item - ${name} deleted successfully`);
+      })
       .catch((e) => console.log("Deletion failed, Error ", e));
 
     props.deleteItem(id);

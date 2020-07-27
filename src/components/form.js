@@ -14,11 +14,9 @@ export default function Form(props) {
 
   //function that sends the final data when user presses Submit
   const handleSubmit = () => {
-    if (props.name) {
-      props.updateItem({ name, price });
-    } else {
-      props.addItem({ name, price });
-    }
+    const item = { name, price };
+    if (props.name) props.updateItem(item);
+    else props.addItem(item);
   };
 
   //calls parent function to close form

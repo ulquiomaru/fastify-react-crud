@@ -12,7 +12,7 @@ export default function MenuItem(props) {
     const { name, price } = props;
     setName(name);
     setPrice(price);
-  }, [props.name, props.price]);
+  }, []);
 
   //function to trigger form view and close item view
   const handleEditClick = () => setOpenEditForm(true);
