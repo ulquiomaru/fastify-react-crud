@@ -98,7 +98,7 @@ function Menu(props) {
         ) : (
           <>
             {props.menuItems.length > 0 ? (
-              [props.menuItems].map((item, i) => {
+              props.menuItems.map((item, i) => {
                 return (
                   <MenuItem
                     key={item.name + "-" + item.price + "-" + item.id}
