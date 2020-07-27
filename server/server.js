@@ -6,12 +6,18 @@ const {
   parsed: { MONGO_ATLAS_DB, MONGO_ATLAS_USER, MONGO_ATLAS_PW },
 } = require("dotenv").config();
 
+const DistPath = path.join(__dirname, "..", "dist");
+fastify.register(require("fastify-static"), {
+  root: DistPath,
+});
 //connect to mongodb atlas
 mongoose
   .connect(
-    `mongodb+srv://${MONGO_ATLAS_USER}:${MONGO_ATLAS_PW}@fastify.gsy7f.mongodb.net/${MONGO_ATLAS_DB}?retryWrites=true&w=majority`,
+    `mongodb+srv://${MONGO_ATLAS_USER}:${MONGO_ATLAS_PW}@fastify.gsy7f.mongodb.net/${MONGO_ATLAS_DB}?retryWrites=true`,
+    // `mongodb+srv://${MONGO_ATLAS_USER}:${MONGO_ATLAS_PW}@fastify.gsy7f.mongodb.net/${MONGO_ATLAS_DB}?retryWrites=true&w=majority`,
     // `mongodb+srv://userx:${MONGO_ATLAS_PW}@cluster0-ufv5h.azure.mongodb.net/test?retryWrites=true`,
-    { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true }
+    { useFindAndModify: false, useNewUrlParser: true }
+    // { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("MongoDB connected"))
   .catch((e) => console.log("MongoDB could not be connected due to ", e));
@@ -19,7 +25,7 @@ mongoose
 //handles GET / request
 fastify.get("/", async (request, reply) => {
   try {
-    return { message: "hello, world!" };
+    reply.sendFile("index.html");
   } catch (e) {
     console.log(e);
   }

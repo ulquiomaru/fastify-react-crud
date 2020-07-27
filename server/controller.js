@@ -4,6 +4,7 @@ const { MenuItem } = require("./models/menuItems");
 const fetchItems = async (req, reply) => {
   try {
     const menuItems = await MenuItem.find();
+    console.log(menuItems);
     return menuItems;
   } catch (err) {
     console.log(err);
@@ -25,7 +26,8 @@ const updateItem = async (req, reply) => {
   try {
     const { id } = req.params;
     const { item } = req.body;
-    const updatedItem = await MenuItem.findOneAndUpdate({ id }, item, {
+    const { ...updateData } = item;
+    const updatedItem = await MenuItem.findOneAndUpdate({ id }, updateData, {
       new: true,
     });
     return updatedItem;

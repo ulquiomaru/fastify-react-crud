@@ -14,7 +14,7 @@ export default function Form(props) {
 
   //function that sends the final data when user presses Submit
   const handleSubmit = () => {
-    if (props.name && props.price) {
+    if (props.name) {
       props.updateItem({ name, price });
     } else {
       props.addItem({ name, price });
