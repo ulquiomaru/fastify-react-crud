@@ -3,8 +3,10 @@ const fastify = require("fastify")();
 const routes = require("./routes");
 const path = require("path");
 const {
-  parsed: { MONGO_ATLAS_DB, MONGO_ATLAS_USER, MONGO_ATLAS_PW },
-} = require("dotenv").config();
+  MONGO_ATLAS_DB,
+  MONGO_ATLAS_USER,
+  MONGO_ATLAS_PW,
+} = require("./config");
 
 const DistPath = path.join(__dirname, "..", "dist");
 
